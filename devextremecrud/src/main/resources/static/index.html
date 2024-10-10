@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevExtreme CRUD Example</title>
+    <!-- DevExtreme CSS -->
+    <link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/23.1.6/css/dx.light.css">
+</head>
+<body>
+<h1>User List</h1>
+
+<!-- DataGrid container -->
+<div id="userGrid"></div>
+
+<!-- DevExtreme and jQuery JS Libraries -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Use this for jQuery -->
+<script src="https://cdn3.devexpress.com/jslib/23.1.6/js/jszip.min.js"></script>
+<script src="https://cdn3.devexpress.com/jslib/23.1.6/js/dx.all.js"></script>
+
+<script>
+    $(function() {
+        // Fetch the user data from the Spring Boot API
+        fetch('/api/users')
+            .then(response => response.json())
+            .then(data => {
+                // Initialize the DevExtreme DataGrid
+                $("#userGrid").dxDataGrid({
+                    dataSource: data,
+                    columns: [
+                        { dataField: "id", caption: "ID" },
+                        { dataField: "firstName", caption: "First Name" },
+                        { dataField: "lastName", caption: "Last Name" },
+                        { dataField: "email", caption: "Email" }
+                    ],
+                    paging: {
+                        pageSize: 10
+                    },
+                    pager: {
+                        showPageSizeSelector: true,
+                        allowedPageSizes: [5, 10, 20],
+                        showInfo: true
+                    },
+                    searchPanel: {
+                        visible: true,
+                        placeholder: "Search..."
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching user data:', error));
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+com\example\devextremecrud\repository\UserRepository.class
+com\example\devextremecrud\model\User.class
+com\example\devextremecrud\controller\UserController.class
+com\example\devextremecrud\DevextremecrudApplication.class
